@@ -1,4 +1,4 @@
-import { Schema, models, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const taskSchema = new Schema({
   title: {
@@ -9,12 +9,8 @@ const taskSchema = new Schema({
     type: String,
     required: false,
   },
-  priority: {
-    type: String,
-    required: false,
-  },
-  status: {
-    type: String,
+  isCompleted: {
+    type: Boolean,
     required: false,
   },
   dueDate: {
@@ -22,3 +18,7 @@ const taskSchema = new Schema({
     required: false,
   },
 });
+
+const Task = model('tasks', taskSchema);
+
+export default Task;
