@@ -1,20 +1,19 @@
+'use client';
 import React from 'react';
 import { Pen, X } from 'lucide-react';
 import { Checkbox } from './ui/checkbox';
-import Todo from '../../models/todo';
-
-interface Todo {
-  id: string;
-  title: string;
-  description?: string;
-  status?: string;
-}
-
-interface TodosItemProps {
-  todos: Todo[];
-}
+import deleteTodo from '@/app/actions/deleteTodo';
+import { TodosItemProps } from '@/app/types/todo';
 
 export default function TodoItem({ todos }: TodosItemProps) {
+  const handleDeleteTodo = async (id: string) => {
+    const confirmed = window.confirm('Are you sure you want to delete this?');
+    if (!confirmed) {
+      return;
+    }
+    await deleteTodo(id);
+  };
+
   return (
     <>
       {todos.map((todo, idx) => (
@@ -30,7 +29,10 @@ export default function TodoItem({ todos }: TodosItemProps) {
           </div>
           <div className="flex items-center content-center gap-2">
             <Pen className="cursor-pointer" />
-            <X className="cursor-pointer" />
+            <X
+              onClick={() => handleDeleteTodo(todo.id)}
+              className="cursor-pointer"
+            />
           </div>
         </div>
       ))}

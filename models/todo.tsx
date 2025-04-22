@@ -19,6 +19,6 @@ const todoSchema = new Schema({
   },
 });
 
-const Todo = models.Todo || model('Todo', todoSchema);
+const TodoModel = models.Todo || model('Todo', todoSchema);
 
-export default Todo;
+export default TodoModel;

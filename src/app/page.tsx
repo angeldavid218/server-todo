@@ -1,13 +1,21 @@
 import TodoItem from '@/components/TodoItem';
 import { connectDB } from '../../config/database';
 import TaskForm from '@/components/TaskForm';
-import Todo from '../../models/todo';
+import TodoModel from '../../models/todo';
+import { Todo } from './types/todo';
 const Home = async () => {
   connectDB();
-  const todos = await Todo.find({}).lean();
 
-  const mappedTodos = todos.map((todo) => ({
-    id: todo._id as string,
+  // using type assertion
+  const todos = (await TodoModel.find({}).lean()) as unknown as {
+    _id: { toString(): string };
+    title: string;
+    description?: string;
+    status: string;
+  }[];
+
+  const mappedTodos: Todo[] = todos.map((todo) => ({
+    id: todo._id.toString(),
     title: todo.title,
     description: todo.description,
     status: todo.status,
