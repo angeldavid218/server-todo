@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, models } from 'mongoose';
 
-const taskSchema = new Schema({
+const todoSchema = new Schema({
   title: {
     type: String,
     required: [true, 'Title is required'],
@@ -19,6 +19,6 @@ const taskSchema = new Schema({
   },
 });
 
-const Task = model('tasks', taskSchema);
+const Todo = models.Todo || model('Todo', todoSchema);
 
-export default Task;
+export default Todo;
