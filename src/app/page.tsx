@@ -9,15 +9,13 @@ const Home = async () => {
   const todos = (await TodoModel.find({}).lean()) as unknown as {
     _id: { toString(): string };
     title: string;
-    description?: string;
-    status: string;
+    isCompleted: boolean;
   }[];
 
   const mappedTodos: Todo[] = todos.map((todo) => ({
     id: todo._id.toString(),
     title: todo.title,
-    description: todo.description,
-    status: todo.status,
+    isCompleted: todo.isCompleted,
   }));
 
   const getTodoById = async (id: string) => {
@@ -25,15 +23,13 @@ const Home = async () => {
     const todo = (await TodoModel.findById(id).lean()) as unknown as {
       _id: { toString(): string };
       title: string;
-      description?: string;
-      status: string;
+      isCompleted: boolean;
     };
 
     return {
       id: todo._id.toString(),
       title: todo.title,
-      description: todo.description,
-      status: todo.status,
+      isCompleted: todo.isCompleted,
     };
   };
 
