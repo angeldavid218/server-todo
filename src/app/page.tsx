@@ -41,7 +41,6 @@ const Home = async () => {
   return (
     <div className="flex flex-col items-center background mt-4">
       <h1>My todo list using server actions</h1>
-      {/* <TaskForm /> */}
       <TodoItem todos={mappedTodos} getTodoById={getTodoById} />
     </div>
   );

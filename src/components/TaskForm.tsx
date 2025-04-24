@@ -46,11 +46,9 @@ export default function TaskForm({
         required
       />
       <Button type="submit">{todo?.id ? 'Update' : 'Add'}</Button>
-      {todo?.id && (
-        <Button type="button" variant="outline" onClick={() => setTodo(null)}>
-          Cancel
-        </Button>
-      )}
+      <Button type="button" variant="outline" onClick={() => onCancel()}>
+        Cancel
+      </Button>
     </form>
   );
 }
