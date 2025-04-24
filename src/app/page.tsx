@@ -21,11 +21,28 @@ const Home = async () => {
     status: todo.status,
   }));
 
+  const getTodoById = async (id: string) => {
+    'use server';
+    const todo = (await TodoModel.findById(id).lean()) as unknown as {
+      _id: { toString(): string };
+      title: string;
+      description?: string;
+      status: string;
+    };
+
+    return {
+      id: todo._id.toString(),
+      title: todo.title,
+      description: todo.description,
+      status: todo.status,
+    };
+  };
+
   return (
     <div className="flex flex-col items-center background mt-4">
       <h1>My todo list using server actions</h1>
-      <TaskForm />
-      <TodoItem todos={mappedTodos} />
+      {/* <TaskForm /> */}
+      <TodoItem todos={mappedTodos} getTodoById={getTodoById} />
     </div>
   );
 };

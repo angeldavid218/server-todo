@@ -1,11 +1,15 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Pen, X } from 'lucide-react';
 import { Checkbox } from './ui/checkbox';
 import deleteTodo from '@/app/actions/deleteTodo';
-import { TodosItemProps } from '@/app/types/todo';
+import { Todo, TodosItemProps } from '@/app/types/todo';
+import TaskForm from './TaskForm';
+import { Button } from './ui/button';
 
-export default function TodoItem({ todos }: TodosItemProps) {
+export default function TodoItem({ todos, getTodoById }: TodosItemProps) {
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
+  const [showForm, setShowForm] = useState(false);
   const handleDeleteTodo = async (id: string) => {
     const confirmed = window.confirm('Are you sure you want to delete this?');
     if (!confirmed) {
@@ -14,8 +18,28 @@ export default function TodoItem({ todos }: TodosItemProps) {
     await deleteTodo(id);
   };
 
+  const handleEdit = async (id: string) => {
+    const todo = await getTodoById(id);
+    setEditingTodo(todo);
+    setShowForm(true);
+  };
+
   return (
     <>
+      {showForm ? (
+        <TaskForm
+          todo={editingTodo}
+          onCancel={() => {
+            setEditingTodo(null);
+            setShowForm(false);
+          }}
+          onSubmitSuccess={() => setShowForm(false)}
+        />
+      ) : (
+        <Button onClick={() => setShowForm(true)} className="mb-4">
+          Add New Task
+        </Button>
+      )}
       {todos.map((todo, idx) => (
         <div
           key={idx}
@@ -28,7 +52,10 @@ export default function TodoItem({ todos }: TodosItemProps) {
             </label>
           </div>
           <div className="flex items-center content-center gap-2">
-            <Pen className="cursor-pointer" />
+            <Pen
+              onClick={() => handleEdit(todo.id)}
+              className="cursor-pointer"
+            />
             <X
               onClick={() => handleDeleteTodo(todo.id)}
               className="cursor-pointer"

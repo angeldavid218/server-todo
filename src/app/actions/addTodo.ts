@@ -3,7 +3,6 @@ import Todo from '../../../models/todo';
 import { revalidatePath } from 'next/cache';
 async function addTodo(formData: FormData) {
   try {
-    console.log(formData.get('todo'));
     const newTodo = new Todo({
       title: formData.get('todo') as string,
     });

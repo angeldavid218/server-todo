@@ -7,4 +7,5 @@ export interface Todo {
 
 export interface TodosItemProps {
   todos: Todo[];
+  getTodoById: (id: string) => Promise<Todo>;
 }
