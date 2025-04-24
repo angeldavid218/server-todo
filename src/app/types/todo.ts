@@ -2,7 +2,7 @@ export interface Todo {
   id: string;
   title: string;
   description?: string;
-  status?: string;
+  isCompleted?: boolean;
 }
 
 export interface TodosItemProps {

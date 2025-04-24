@@ -5,6 +5,7 @@ async function addTodo(formData: FormData) {
   try {
     const newTodo = new Todo({
       title: formData.get('todo') as string,
+      isCompleted: false,
     });
     await newTodo.save();
   } catch (error) {

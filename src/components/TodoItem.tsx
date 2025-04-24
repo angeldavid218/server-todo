@@ -6,7 +6,7 @@ import deleteTodo from '@/app/actions/deleteTodo';
 import { Todo, TodosItemProps } from '@/app/types/todo';
 import TaskForm from './TaskForm';
 import { Button } from './ui/button';
-
+import ToggleTodo from '@/app/actions/toggleTodo';
 export default function TodoItem({ todos, getTodoById }: TodosItemProps) {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -24,11 +24,15 @@ export default function TodoItem({ todos, getTodoById }: TodosItemProps) {
     setShowForm(true);
   };
 
+  const handleCheckboxClick = async (id: string) => {
+    await ToggleTodo(id);
+  };
+
   return (
     <>
       {showForm ? (
         <TaskForm
-          todo={editingTodo}
+          todo={editingTodo ?? undefined}
           onCancel={() => {
             setEditingTodo(null);
             setShowForm(false);
@@ -46,7 +50,11 @@ export default function TodoItem({ todos, getTodoById }: TodosItemProps) {
           className="text-3xl bg-white w-1/2 rounded-sm mt-4 h-13 flex justify-between p-3"
         >
           <div className="flex items-center space-x-2">
-            <Checkbox id="todo-element" />
+            <Checkbox
+              id={todo.id}
+              checked={todo.isCompleted === true}
+              onClick={() => handleCheckboxClick(todo.id)}
+            />
             <label htmlFor="todo-element" className="text-xl cursor-pointer">
               {todo.title}
             </label>

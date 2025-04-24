@@ -5,15 +5,11 @@ const todoSchema = new Schema({
     type: String,
     required: [true, 'Title is required'],
   },
-  description: {
-    type: String,
-    required: false,
-  },
   isCompleted: {
     type: Boolean,
     required: false,
   },
-  dueDate: {
+  creationDate: {
     type: Date,
     required: false,
   },
