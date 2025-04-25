@@ -1,16 +1,9 @@
 import TodoItem from '@/components/TodoItem';
-import { connectDB } from '../../config/database';
 import TodoModel from '../../models/todo';
-import { Todo } from './types/todo';
+import { Todo, TodoDocument } from '@/app/types/todo';
 const Home = async () => {
-  connectDB();
-
   // using type assertion
-  const todos = (await TodoModel.find({}).lean()) as unknown as {
-    _id: { toString(): string };
-    title: string;
-    isCompleted: boolean;
-  }[];
+  const todos = (await TodoModel.find({}).lean()) as unknown as TodoDocument[];
 
   const mappedTodos: Todo[] = todos.map((todo) => ({
     id: todo._id.toString(),
@@ -20,11 +13,10 @@ const Home = async () => {
 
   const getTodoById = async (id: string) => {
     'use server';
-    const todo = (await TodoModel.findById(id).lean()) as unknown as {
-      _id: { toString(): string };
-      title: string;
-      isCompleted: boolean;
-    };
+    const todo = (await TodoModel.findById(
+      id
+    ).lean()) as unknown as TodoDocument;
+
     return {
       id: todo._id.toString(),
       title: todo.title,

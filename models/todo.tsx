@@ -1,4 +1,5 @@
 import { Schema, model, models } from 'mongoose';
+import { connectDB } from '../config/database';
 
 const todoSchema = new Schema({
   title: {
@@ -15,6 +16,7 @@ const todoSchema = new Schema({
   },
 });
 
+connectDB();
 const TodoModel = models?.Todo || model('Todo', todoSchema);
 
 export default TodoModel;

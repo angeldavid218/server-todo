@@ -5,12 +5,7 @@ import { Input } from './ui/input';
 import addTodo from '@/app/actions/addTodo';
 import updateTodo from '@/app/actions/updateTodo';
 import { Todo } from '@/app/types/todo';
-
-interface taskFormProps {
-  todo?: Todo;
-  onCancel: () => void;
-  onSubmitSuccess: () => void;
-}
+import { taskFormProps } from '@/app/types/taskForm';
 
 export default function TaskForm({
   todo: initialTodo,
