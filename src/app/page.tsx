@@ -1,4 +1,4 @@
-import TodoItem from '@/components/TodoItem';
+import ListTodo from '@/components/ListTodo';
 import TodoModel from '../../models/todo';
 import { Todo, TodoDocument } from '@/app/types/todo';
 const Home = async () => {
@@ -27,7 +27,7 @@ const Home = async () => {
   return (
     <div className="flex flex-col items-center background mt-4">
       <h1>My todo list using server actions</h1>
-      <TodoItem todos={mappedTodos} getTodoById={getTodoById} />
+      <ListTodo todos={mappedTodos} getTodoById={getTodoById} />
     </div>
   );
 };

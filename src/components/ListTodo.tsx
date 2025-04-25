@@ -7,7 +7,7 @@ import { Todo, TodosItemProps } from '@/app/types/todo';
 import TaskForm from './TaskForm';
 import { Button } from './ui/button';
 import ToggleTodo from '@/app/actions/toggleTodo';
-export default function TodoItem({ todos, getTodoById }: TodosItemProps) {
+export default function ListTodo({ todos, getTodoById }: TodosItemProps) {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const [showForm, setShowForm] = useState(false);
   const handleDeleteTodo = async (id: string) => {
