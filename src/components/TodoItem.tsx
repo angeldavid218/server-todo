@@ -40,7 +40,7 @@ export default function TodoItem({ todos, getTodoById }: TodosItemProps) {
           onSubmitSuccess={() => setShowForm(false)}
         />
       ) : (
-        <Button onClick={() => setShowForm(true)} className="mb-4">
+        <Button onClick={() => setShowForm(true)} className="mb-4 mt-4">
           Add New Task
         </Button>
       )}

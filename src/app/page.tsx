@@ -25,7 +25,6 @@ const Home = async () => {
       title: string;
       isCompleted: boolean;
     };
-
     return {
       id: todo._id.toString(),
       title: todo.title,
