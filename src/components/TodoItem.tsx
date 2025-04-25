@@ -55,7 +55,12 @@ export default function TodoItem({ todos, getTodoById }: TodosItemProps) {
               checked={todo.isCompleted === true}
               onClick={() => handleCheckboxClick(todo.id)}
             />
-            <label htmlFor="todo-element" className="text-xl cursor-pointer">
+            <label
+              htmlFor="todo-element"
+              className={`text-xl cursor-pointer ${
+                todo.isCompleted ? 'line-through' : ''
+              }`}
+            >
               {todo.title}
             </label>
           </div>
