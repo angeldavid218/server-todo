@@ -1,10 +1,11 @@
 import ListTodo from '@/components/ListTodo';
 import TodoModel from '../../models/todo';
 import { Todo, TodoDocument } from '@/app/types/todo';
-const Home = async () => {
-  // using type assertion
-  const todos = (await TodoModel.find({}).lean()) as unknown as TodoDocument[];
 
+const Home = async () => {
+  // using type assertion and also lean method to get the todos from the database
+  const todos = (await TodoModel.find({}).lean()) as unknown as TodoDocument[];
+  // mapping the result to the Todo interface
   const mappedTodos: Todo[] = todos.map((todo) => ({
     id: todo._id.toString(),
     title: todo.title,

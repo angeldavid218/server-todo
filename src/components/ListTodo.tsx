@@ -7,9 +7,13 @@ import { Todo, TodosItemProps } from '@/app/types/todo';
 import TaskForm from './TaskForm';
 import { Button } from './ui/button';
 import ToggleTodo from '@/app/actions/toggleTodo';
+
 export default function ListTodo({ todos, getTodoById }: TodosItemProps) {
+  // editingTodo state is used to store the todo being edited
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
+  // showForm state is used to control the visibility of the TaskForm component once we click on the add button
   const [showForm, setShowForm] = useState(false);
+  // handleDeleteTodo is used to delete a todo
   const handleDeleteTodo = async (id: string) => {
     const confirmed = window.confirm('Are you sure you want to delete this?');
     if (!confirmed) {
@@ -17,13 +21,14 @@ export default function ListTodo({ todos, getTodoById }: TodosItemProps) {
     }
     await deleteTodo(id);
   };
-
+  // handleEdit is used to edit the current todo on the TaskForm component
   const handleEdit = async (id: string) => {
     const todo = await getTodoById(id);
     setEditingTodo(todo);
     setShowForm(true);
   };
 
+  // handleCheckboxClick is used to toggle the completion status of a todo
   const handleCheckboxClick = async (id: string) => {
     await ToggleTodo(id);
   };
@@ -52,7 +57,7 @@ export default function ListTodo({ todos, getTodoById }: TodosItemProps) {
           <div className="flex items-center space-x-2">
             <Checkbox
               id={todo.id}
-              checked={todo.isCompleted === true}
+              checked={todo.isCompleted}
               onClick={() => handleCheckboxClick(todo.id)}
             />
             <label
