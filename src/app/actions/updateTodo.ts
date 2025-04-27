@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 
 async function updateTodo(formData: FormData) {
   try {
+    // the id we get from the hidden input
     const id = formData.get('id');
     const title = formData.get('todo');
     await Todo.findByIdAndUpdate(id, { title });

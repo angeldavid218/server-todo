@@ -23,6 +23,8 @@ export default function ListTodo({ todos, getTodoById }: TodosItemProps) {
   };
   // handleEdit is used to edit the current todo on the TaskForm component
   const handleEdit = async (id: string) => {
+    // this function is used to call a function on the parent component (page.tsx)
+    // as it is a server component we can use it to make the query on the database
     const todo = await getTodoById(id);
     setEditingTodo(todo);
     setShowForm(true);
@@ -39,6 +41,7 @@ export default function ListTodo({ todos, getTodoById }: TodosItemProps) {
         <TaskForm
           todo={editingTodo ?? undefined}
           onCancel={() => {
+            // reset the editingTodo state and hide the form
             setEditingTodo(null);
             setShowForm(false);
           }}
